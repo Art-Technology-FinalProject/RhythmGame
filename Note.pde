@@ -49,6 +49,7 @@ public class BlueNote extends Note {
   
   public void impact() {
     rotVel /= 2; 
+    score_point += 1;
   }
 }
 
@@ -60,7 +61,7 @@ public class GreenNote extends Note {
   }
   
   public void impact() {
-     
+     score_point += 1;
   }
 }
 
@@ -73,6 +74,7 @@ public class YellowNote extends Note {
   
   public void impact() {
     rotVel *= 2; 
+    score_point += 1;
   }
 }
 
@@ -85,5 +87,6 @@ public class WhiteNote extends Note {
   
   public void impact() {
     rotVel *= -1; 
+    score_point += 1;
   }
 }

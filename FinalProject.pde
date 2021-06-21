@@ -24,13 +24,18 @@ float rotVel = PI/72;
 float x = 0;
 int s = second();
 
+Score scr;
+int score_point = 0;
+
+field f;
 
 import ddf.minim.*;
 import ddf.minim.effects.*;
+import ddf.minim.analysis.*;
 
 Minim minim;
 AudioPlayer bgm;
-
+BeatDetect beat;
 
 void setup(){
   size(800, 600);
@@ -69,7 +74,8 @@ void setup(){
     
     start = millis();
   }
-  
+  beat = new BeatDetect();
+  f = new field(width, height);
 }
 
 int k = 0;
@@ -78,8 +84,37 @@ int CUR_TIME;
 ArrayList<Note> cccc = new ArrayList<Note>();
 boolean flag = false;
 
+
+float x1 = 80;  float x2 = width - 80;
+      float y1 = 60; float y2 = height - 60;
 void draw(){
   
+    beat.detect(bgm.mix);
+    if ( beat.isOnset() ) {
+      x1 = 40; x2 = width - 40;
+      y1 = 30; y2 = height - 30;
+    }
+    strokeWeight(3);
+    stroke(255);
+    quad(x1, y1, x2, y1, x2, y2, x1, y2);
+    
+    x1 += 4;
+    x2 -= 4;
+    y1 += 3;
+    y2 -= 3;
+    
+    if ( x1 > 80   ) {
+      x1 = 80;
+      y1 = 60;
+      x2 = width - 80;
+      y2 = height - 60;
+    }
+
+  
+  
+  // score board
+  scr = new Score(score_point);
+  scr.display();
   
   
   if (flag) {
