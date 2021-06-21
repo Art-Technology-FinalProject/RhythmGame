@@ -8,6 +8,6 @@ class Score{
   void display() {
     fill(255);
     textSize(32);
-    text("Score: " + str(score), 10, 30);
+    text("Score: " + str(score), 87, 92);
   }
 }

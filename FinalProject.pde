@@ -37,12 +37,17 @@ Minim minim;
 AudioPlayer bgm;
 BeatDetect beat;
 
+PFont myfont;
+
 void setup(){
   size(800, 600);
   
   fill(0);
   rect(0, 0, width, height);
 
+  //myfont = createFont("한컴돋움",32);
+  //textFont(myfont);
+  
   noteBreaker = loadImage("noteBreaker.png");
   blueNote = loadImage("blue.png");
   greenNote = loadImage("green.png");
@@ -86,13 +91,24 @@ boolean flag = false;
 
 
 float x1 = 80;  float x2 = width - 80;
-      float y1 = 60; float y2 = height - 60;
+float y1 = 60; float y2 = height - 60;
+
+int pressedTime = -9000;
+
+
+import java.util.LinkedList; //import
+import java.util.Queue; //import
+import java.util.Iterator;
+
+Queue<String> queue = new LinkedList<String>();
+Iterator<String> iter = null;
+
 void draw(){
   
     beat.detect(bgm.mix);
     if ( beat.isOnset() ) {
-      x1 = 40; x2 = width - 40;
-      y1 = 30; y2 = height - 30;
+      x1 = 0; x2 = width;
+      y1 = 0; y2 = height;
     }
     strokeWeight(3);
     stroke(255);
@@ -119,13 +135,17 @@ void draw(){
   
   if (flag) {
    for (Note c : cccc) {
-    println(c.time);
-    println(rotPos);
-    println(c.color_);
+    //println(c.time);
+    //println(rotPos);
+    //println(c.color_);
+    pressedTime = c.time;
    }
+   
    cccc.clear();
    flag = false;
   }
+  
+  //print(pressedTime);
   
   
   
@@ -160,6 +180,15 @@ void draw(){
       k += 1;
   }
   
+  iter = queue.iterator();
+  int tx = width - 103, ty=92;
+  while(iter.hasNext()) {
+    fill(255);
+    textSize(32);
+    text(iter.next(), tx, ty);
+    ty += 30;
+  }
+  
   ArrayList<Note> cp_notes = new ArrayList<Note>(notes);
   for(Note note : cp_notes){
       note.appear();
@@ -187,6 +216,7 @@ void draw(){
       }
   }
   // // 대충 노트 시간을 지나면 class에 넣고 track에 맞춰서 나오게끔 하는 방식이구나
+  
   
 
   pushMatrix();
@@ -216,6 +246,27 @@ void draw(){
 }
 
 void keyPressed() {
-  println(rotPos);
+  int gap = abs(pressedTime - millis());
+  println(gap);
+  if (gap<50) {
+    score_point += 173;
+    addQ("A");
+  } else if (50<=gap & gap<100) {
+    score_point += 73;
+    addQ("B");
+  } else if (100<=gap & gap<400) {
+    score_point += 37;
+    addQ("C");
+  } else if (400<=gap) {
+    score_point -= 300;
+    addQ("F");
+  }
   
+}
+
+void addQ(String s) {
+ if (queue.size() > 3) {
+  queue.remove();
+ }
+ queue.add(s);
 }
