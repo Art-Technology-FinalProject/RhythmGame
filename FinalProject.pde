@@ -6,7 +6,7 @@ final int GREEN = 2;
 final int YELLOW = 3;
 final int WHITE = 4;
 
-final int NUM_NOTE = 5;
+final int NUM_NOTE = 131;
 final int LIFE_MS = 700;
 PImage noteBreaker, blueNote, greenNote, yellowNote, whiteNote;
 
@@ -100,6 +100,7 @@ void draw(){
        break;
     }
     notes.add(note);
+    //println(rotPos);
     if (k<NUM_NOTE-1)
       k += 1;
   }
@@ -142,14 +143,22 @@ void draw(){
   
     imageMode(CENTER);
     image(noteBreaker, - circleRad/2, 0, 80, 80);
-    popMatrix();
+  popMatrix();
 
   rotPos += rotVel;
   //x += 1;
 
+  //println(k);
+  //if (noteTime[k] - millis() < 500) {
+  //   println(noteTime[k]);
+  //  println(rotPos); 
+  //  println(noteColor[k]);
+  //}
+
+
 }
 
 void keyPressed() {
-  
+  println(rotPos);
   
 }
