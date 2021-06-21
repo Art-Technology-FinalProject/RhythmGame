@@ -1,39 +1,118 @@
-class Note {
+public class Note {
   float pos;
   int color_;
-  int size = 40;
+  int size;
   
-  Note(float nPos, int nColor){
-    pos = nPos;
-    color_ = nColor;
-  }
+  //Note(float nPos, int nColor){
+  //  pos = nPos;
+  //  color_ = nColor;
+  //}
   
-  void appear(){
+  public void appear(){ 
     pushMatrix();
       translate(width/2, height/2);
       rotate(pos);
       switch(color_){
-        case 1:
+        case BLUE:
           image(blueNote, - circleRad/2, 0, size, size);
         break;
-        case 2:
+        case GREEN:
           image(greenNote, - circleRad/2, 0, size, size);
         break;
-        case 3:
+        case YELLOW:
           image(yellowNote, - circleRad/2, 0, size, size);
         break;
-        case 4:
+        case WHITE:
           image(whiteNote, - circleRad/2, 0, size, size);
         break;
       }
     popMatrix();
   }
+
+  //public void impact() { } 
+}
+
+//1 blue_note - BoooooooM!!! / slower
+//2 green_note - / normal
+//3 yellow_note - big size / display quake / faster
+//4 white-note - / reverse
+
+public class BlueNote extends Note {
+  public BlueNote(float nPos) {
+   this.pos = nPos;
+   this.color_ = BLUE;
+   this.size = 40;
+  }
   
-  void impact() {
-    //disapear
+  //public void apper() {
+  //  pushMatrix();
+  //    translate(width/2, height/2);
+  //    rotate(pos);
+  //    image(blueNote, - circleRad/2, 0, size, size);
+  //  popMatrix();
+  //}
+  
+  public void impact() {
+    rotVel /= 2; 
   }
 }
 
-//blue_note - BoooooooM!!!
-//yellow_note - big size / display quake
-//green_note - 
+public class GreenNote extends Note {
+  public GreenNote(float nPos) {
+   this.pos = nPos;
+   this.color_ = GREEN;
+   this.size = 40;
+  }
+  
+  //public void apper() {
+  //  pushMatrix();
+  //    translate(width/2, height/2);
+  //    rotate(pos);
+  //    image(greenNote, - circleRad/2, 0, size, size);
+  //  popMatrix();
+  //}
+  
+  public void impact() {
+     
+  }
+}
+
+public class YellowNote extends Note {
+  public YellowNote(float nPos) {
+   this.pos = nPos;
+   this.color_ = YELLOW;
+   this.size = 40;
+  }
+  
+  //public void apper() {
+  //  pushMatrix();
+  //    translate(width/2, height/2);
+  //    rotate(pos);
+  //    image(yellowNote, - circleRad/2, 0, size, size);
+  //  popMatrix();
+  //}
+  
+  public void impact() {
+    rotVel *= 2; 
+  }
+}
+
+public class WhiteNote extends Note {
+  public WhiteNote(float nPos) {
+   this.pos = nPos;
+   this.color_ = WHITE;
+   this.size = 40;
+  }
+  
+  //public void apper() {
+  //  pushMatrix();
+  //    translate(width/2, height/2);
+  //    rotate(pos);
+  //    image(whiteNote, - circleRad/2, 0, size, size);
+  //  popMatrix();
+  //}
+  
+  public void impact() {
+    rotVel *= -1; 
+  }
+}

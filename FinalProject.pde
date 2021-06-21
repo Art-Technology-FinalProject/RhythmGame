@@ -1,6 +1,11 @@
 // 공이 지나가는 속도 노트가 생겨나는  rad와 적합하게 만들 수 있는지
 // labeling
 
+final int BLUE = 1;
+final int GREEN = 2;
+final int YELLOW = 3;
+final int WHITE = 4;
+
 PImage noteBreaker, blueNote, greenNote, yellowNote, whiteNote;
 
 ArrayList<Note> notes = new ArrayList<Note>();
@@ -70,9 +75,26 @@ void draw(){
   fill(0, 30);
   rect(0, 0, width, height);
  
-  if(noteTime[k] - 500 <= millis()){
-    
-    notes.add(new Note(notePos[k], noteColor[k]));
+  if(noteTime[k] <= millis()+500){
+    Note note;
+    switch (noteColor[k]){
+     case BLUE:
+       note = new BlueNote(notePos[k]);
+       break;
+     case GREEN:
+       note = new GreenNote(notePos[k]);
+       break;
+     case YELLOW:
+       note = new YellowNote(notePos[k]);
+       break;
+     case WHITE:
+       note = new WhiteNote(notePos[k]);
+       break;
+     default:
+       note = null;
+       break;
+    }
+    notes.add(note);
     k += 1;
   }
   for(Note note : notes){
@@ -100,5 +122,6 @@ void draw(){
 }
 
 void keyPressed() {
-  rotVel *= -1;
+  
+  
 }
