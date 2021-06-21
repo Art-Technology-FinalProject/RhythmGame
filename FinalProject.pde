@@ -6,7 +6,7 @@ final int GREEN = 2;
 final int YELLOW = 3;
 final int WHITE = 4;
 
-final int NUM_NOTE = 131;
+final int NUM_NOTE = 129;
 final int LIFE_MS = 700;
 PImage noteBreaker, blueNote, greenNote, yellowNote, whiteNote;
 
@@ -48,7 +48,7 @@ void setup(){
   bgm = minim.loadFile("bgm.mp3");
   bgm.loop();
   
-  String[] lines = loadStrings("bgm.txt");
+  String[] lines = loadStrings("break_point.txt");
   
   noteTime = new int[lines.length / 3];
   notePos = new float[lines.length / 3];
@@ -69,11 +69,31 @@ void setup(){
     
     start = millis();
   }
+  
 }
 
 int k = 0;
 int CUR_TIME;
+
+ArrayList<Note> cccc = new ArrayList<Note>();
+boolean flag = false;
+
 void draw(){
+  
+  
+  
+  if (flag) {
+   for (Note c : cccc) {
+    println(c.time);
+    println(rotPos);
+    println(c.color_);
+   }
+   cccc.clear();
+   flag = false;
+  }
+  
+  
+  
   CUR_TIME = millis();
   fill(0, 30);
   rect(0, 0, width, height);
@@ -127,6 +147,8 @@ void draw(){
         }
         
         notes.remove(note);
+        cccc.add(note);
+        flag = true;
       }
   }
   // // 대충 노트 시간을 지나면 class에 넣고 track에 맞춰서 나오게끔 하는 방식이구나
