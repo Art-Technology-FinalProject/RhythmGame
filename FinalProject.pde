@@ -6,6 +6,8 @@ final int GREEN = 2;
 final int YELLOW = 3;
 final int WHITE = 4;
 
+final int NUM_NOTE = 5;
+final int LIFE_MS = 700;
 PImage noteBreaker, blueNote, greenNote, yellowNote, whiteNote;
 
 ArrayList<Note> notes = new ArrayList<Note>();
@@ -13,6 +15,7 @@ ArrayList<Note> notes = new ArrayList<Note>();
 int[] noteTime;
 float[] notePos; // rad로 position표현할 수 잇는 법 찾기
 int[] noteColor;
+
 int start;
 
 float circleRad = 300;
@@ -69,36 +72,61 @@ void setup(){
 }
 
 int k = 0;
-
+int CUR_TIME;
 void draw(){
-
+  CUR_TIME = millis();
   fill(0, 30);
   rect(0, 0, width, height);
- 
-  if(noteTime[k] <= millis()+500){
+  
+  int appear_time = noteTime[k] - LIFE_MS >= 0? noteTime[k] - LIFE_MS : 0;
+  if(appear_time <= CUR_TIME){
+    //print(appear_time+"\n");
     Note note;
     switch (noteColor[k]){
      case BLUE:
-       note = new BlueNote(notePos[k]);
+       note = new BlueNote(notePos[k], noteTime[k]);
        break;
      case GREEN:
-       note = new GreenNote(notePos[k]);
+       note = new GreenNote(notePos[k], noteTime[k]);
        break;
      case YELLOW:
-       note = new YellowNote(notePos[k]);
+       note = new YellowNote(notePos[k], noteTime[k]);
        break;
      case WHITE:
-       note = new WhiteNote(notePos[k]);
+       note = new WhiteNote(notePos[k], noteTime[k]);
        break;
      default:
        note = null;
        break;
     }
     notes.add(note);
-    k += 1;
+    if (k<NUM_NOTE-1)
+      k += 1;
   }
-  for(Note note : notes){
+  
+  ArrayList<Note> cp_notes = new ArrayList<Note>(notes);
+  for(Note note : cp_notes){
       note.appear();
+      if (note.time <= CUR_TIME) {
+        //print(note.time+"/"+CUR_TIME+"\n");
+        
+        switch (note.color_){
+         case BLUE:
+           ((BlueNote)note).impact();
+           break;
+         case GREEN:
+           ((GreenNote)note).impact();
+           break;
+         case YELLOW:
+           ((YellowNote)note).impact();
+           break;
+         case WHITE:
+           ((WhiteNote)note).impact();
+           break;
+        }
+        
+        notes.remove(note);
+      }
   }
   // // 대충 노트 시간을 지나면 class에 넣고 track에 맞춰서 나오게끔 하는 방식이구나
   

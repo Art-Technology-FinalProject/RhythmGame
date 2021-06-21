@@ -2,11 +2,13 @@ public class Note {
   float pos;
   int color_;
   int size;
+  int time;
   
-  //Note(float nPos, int nColor){
-  //  pos = nPos;
-  //  color_ = nColor;
-  //}
+  public Note(float nPos, int nTime) {
+   this.pos = nPos;
+   this.time = nTime;
+   this.size = 40;
+  }
   
   public void appear(){ 
     pushMatrix();
@@ -38,19 +40,12 @@ public class Note {
 //4 white-note - / reverse
 
 public class BlueNote extends Note {
-  public BlueNote(float nPos) {
-   this.pos = nPos;
+  public BlueNote(float nPos, int nTime) {
+    super(nPos, nTime);
    this.color_ = BLUE;
    this.size = 40;
   }
   
-  //public void apper() {
-  //  pushMatrix();
-  //    translate(width/2, height/2);
-  //    rotate(pos);
-  //    image(blueNote, - circleRad/2, 0, size, size);
-  //  popMatrix();
-  //}
   
   public void impact() {
     rotVel /= 2; 
@@ -58,19 +53,11 @@ public class BlueNote extends Note {
 }
 
 public class GreenNote extends Note {
-  public GreenNote(float nPos) {
-   this.pos = nPos;
+  public GreenNote(float nPos, int nTime) {
+   super(nPos, nTime);
    this.color_ = GREEN;
    this.size = 40;
   }
-  
-  //public void apper() {
-  //  pushMatrix();
-  //    translate(width/2, height/2);
-  //    rotate(pos);
-  //    image(greenNote, - circleRad/2, 0, size, size);
-  //  popMatrix();
-  //}
   
   public void impact() {
      
@@ -78,19 +65,11 @@ public class GreenNote extends Note {
 }
 
 public class YellowNote extends Note {
-  public YellowNote(float nPos) {
-   this.pos = nPos;
+  public YellowNote(float nPos, int nTime) {
+   super(nPos, nTime);
    this.color_ = YELLOW;
    this.size = 40;
   }
-  
-  //public void apper() {
-  //  pushMatrix();
-  //    translate(width/2, height/2);
-  //    rotate(pos);
-  //    image(yellowNote, - circleRad/2, 0, size, size);
-  //  popMatrix();
-  //}
   
   public void impact() {
     rotVel *= 2; 
@@ -98,19 +77,11 @@ public class YellowNote extends Note {
 }
 
 public class WhiteNote extends Note {
-  public WhiteNote(float nPos) {
-   this.pos = nPos;
+  public WhiteNote(float nPos, int nTime) {
+   super(nPos, nTime);
    this.color_ = WHITE;
    this.size = 40;
   }
-  
-  //public void apper() {
-  //  pushMatrix();
-  //    translate(width/2, height/2);
-  //    rotate(pos);
-  //    image(whiteNote, - circleRad/2, 0, size, size);
-  //  popMatrix();
-  //}
   
   public void impact() {
     rotVel *= -1; 
